@@ -17,17 +17,23 @@ type resultsScreen struct {
 	model *model
 }
 
+func (r *resultsScreen) Reset() {
+	if r.model.loadContents() != nil {
+		setCurrentScreen(&topicScreen{model: r.model})
+		return
+	}
+	r.model.viewport.SetContent(r.model.resultContent)
+}
+
 func (r *resultsScreen) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyEscape:
-			currentScreen = &topicScreen{model: r.model}
-			r.model.selectedTopic = ""
-			r.model.selectedQuery = ""
+			setCurrentScreen(&topicScreen{model: r.model})
 			return r.model, nil
 		case tea.KeyRunes:
-			if msg.Runes[0] == 'q' {
+			if string(msg.Runes) == "q" {
 				return r.model, tea.Quit
 			}
 		case tea.KeyCtrlC:
@@ -40,12 +46,6 @@ func (r *resultsScreen) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		r.model.viewport.Height = msg.Height - verticalMargins
 	}
 
-	// Because we're using the viewport's default update function (with pager-
-	// style navigation) it's important that the viewport's update function:
-	//
-	// * Receives messages from the Bubble Tea runtime
-	// * Returns commands to the Bubble Tea runtime
-	//
 	var cmd tea.Cmd
 	r.model.viewport, cmd = r.model.viewport.Update(msg)
 	return r.model, cmd
@@ -56,10 +56,9 @@ func (r resultsScreen) View() string {
 		return "\n  Initializing..."
 	}
 
-	// TODO: colocar a query no resultado
-	headerTop := "╭───────────╮"
-	headerMid := "│ Resultado ├"
-	headerBot := "╰───────────╯"
+	headerMid := fmt.Sprintf("│ Resultado: %q ├", r.model.selectedTopic)
+	headerTop := "╭" + strings.Repeat("─", runewidth.StringWidth(headerMid)-2) + "╮"
+	headerBot := "╰" + strings.Repeat("─", runewidth.StringWidth(headerMid)-2) + "╯"
 	headerMid += strings.Repeat("─", r.model.viewport.Width-runewidth.StringWidth(headerMid))
 	header := fmt.Sprintf("%s\n%s\n%s", headerTop, headerMid, headerBot)
 
