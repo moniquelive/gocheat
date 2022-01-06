@@ -60,8 +60,12 @@ func (m model) View() string {
 
 func (m *model) loadContents() error {
 	query := m.selectedTopic
-	if escapedQuery := url2.QueryEscape(m.selectedQuery); escapedQuery != "" {
-		query += "/" + escapedQuery
+	if m.selectedQuery != "" {
+		if m.selectedQuery[0] == ':' {
+			query += "/" + m.selectedQuery
+		} else if escapedQuery := url2.QueryEscape(m.selectedQuery); escapedQuery != "" {
+			query += "/" + escapedQuery
+		}
 	}
 	url := fmt.Sprintf("https://cht.sh/%s?style=paraiso-dark", query)
 	resp, _, errs := gorequest.New().
