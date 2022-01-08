@@ -10,6 +10,7 @@ import (
 	url2 "net/url"
 	"os"
 
+	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 
 	"github.com/Xuanwo/go-locale"
@@ -144,6 +145,9 @@ func main() {
 	tag, err := locale.Detect()
 	if err != nil {
 		log.Fatal(err)
+	}
+	if tag == language.Portuguese {
+		tag = language.BrazilianPortuguese
 	}
 	log.Println("Tag:", tag)
 	p = message.NewPrinter(tag)
