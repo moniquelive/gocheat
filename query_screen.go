@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -38,5 +36,5 @@ func (q *queryScreen) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (q queryScreen) View() string {
-	return fmt.Sprintf("Digite sua consulta\n\n%s\n\n(esc to quit)\n", q.model.queryTextInput.View())
+	return p.Sprintf("Type your query\n\n%s\n\n(esc to quit)\n", q.model.queryTextInput.View())
 }

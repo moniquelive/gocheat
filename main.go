@@ -1,5 +1,7 @@
 package main
 
+//go:generate gotext update -lang en-US,pt-BR -out catalog.go
+
 import (
 	"bytes"
 	"fmt"
@@ -8,6 +10,9 @@ import (
 	url2 "net/url"
 	"os"
 
+	"golang.org/x/text/message"
+
+	"github.com/Xuanwo/go-locale"
 	"github.com/charmbracelet/bubbles/list"
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/viewport"
@@ -15,6 +20,8 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"github.com/parnurzeal/gorequest"
 )
+
+var p *message.Printer
 
 var docStyle = lipgloss.NewStyle().Margin(1, 2)
 
@@ -112,7 +119,7 @@ func InitialModel() *model {
 	}
 
 	tm := textinput.NewModel()
-	tm.Placeholder = "Digite sua consulta"
+	tm.Placeholder = p.Sprintf("Your query")
 	tm.Focus()
 	tm.CharLimit = 156
 	tm.Width = 20
@@ -124,7 +131,7 @@ func InitialModel() *model {
 		list:           lm,
 		queryTextInput: tm,
 	}
-	m.list.Title = "Tópicos"
+	m.list.Title = p.Sprintf("Topics")
 	return &m
 }
 
@@ -134,12 +141,18 @@ func setCurrentScreen(scr screen) {
 }
 
 func main() {
+	tag, err := locale.Detect()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Tag:", tag)
+	p = message.NewPrinter(tag)
+
 	m := InitialModel()
 	setCurrentScreen(&topicScreen{model: m})
 
 	p := tea.NewProgram(m, tea.WithAltScreen())
 	if err := p.Start(); err != nil {
-		fmt.Println("Error running program:", err)
-		os.Exit(1)
+		log.Fatal("Error running program:", err)
 	}
 }

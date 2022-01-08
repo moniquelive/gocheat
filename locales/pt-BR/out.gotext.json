@@ -1,0 +1,45 @@
+{
+    "language": "pt-BR",
+    "messages": [
+        {
+            "id": "Your query",
+            "message": "Your query",
+            "translation": "Sua consulta"
+        },
+        {
+            "id": "Topics",
+            "message": "Topics",
+            "translation": "Tópicos"
+        },
+        {
+            "id": "Type your query\n\n{View}\n\n(esc to quit)",
+            "message": "Type your query\n\n{View}\n\n(esc to quit)",
+            "translation": "Digite sua consulta\n\n{View}\n\n(esc to quit)",
+            "placeholders": [
+                {
+                    "id": "View",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "q.model.queryTextInput.View()"
+                }
+            ]
+        },
+        {
+            "id": "│ Result: {SelectedTopic} ├",
+            "message": "│ Result: {SelectedTopic} ├",
+            "translation": "│ Resultado: {SelectedTopic} ├",
+            "placeholders": [
+                {
+                    "id": "SelectedTopic",
+                    "string": "%[1]q",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "r.model.selectedTopic"
+                }
+            ]
+        }
+    ]
+}

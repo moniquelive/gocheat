@@ -56,7 +56,7 @@ func (r resultsScreen) View() string {
 		return "\n  Initializing..."
 	}
 
-	headerMid := fmt.Sprintf("│ Resultado: %q ├", r.model.selectedTopic)
+	headerMid := p.Sprintf("│ Result: %q ├", r.model.selectedTopic)
 	headerTop := "╭" + strings.Repeat("─", runewidth.StringWidth(headerMid)-2) + "╮"
 	headerBot := "╰" + strings.Repeat("─", runewidth.StringWidth(headerMid)-2) + "╯"
 	headerMid += strings.Repeat("─", r.model.viewport.Width-runewidth.StringWidth(headerMid))

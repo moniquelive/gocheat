@@ -1,0 +1,53 @@
+{
+    "language": "en-US",
+    "messages": [
+        {
+            "id": "Your query",
+            "message": "Your query",
+            "translation": "Your query",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Topics",
+            "message": "Topics",
+            "translation": "Topics",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Type your query\n\n{View}\n\n(esc to quit)",
+            "message": "Type your query\n\n{View}\n\n(esc to quit)",
+            "translation": "Type your query\n\n{View}\n\n(esc to quit)",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "View",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "q.model.queryTextInput.View()"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "│ Result: {SelectedTopic} ├",
+            "message": "│ Result: {SelectedTopic} ├",
+            "translation": "│ Result: {SelectedTopic} ├",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "SelectedTopic",
+                    "string": "%[1]q",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "r.model.selectedTopic"
+                }
+            ],
+            "fuzzy": true
+        }
+    ]
+}
