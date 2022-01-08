@@ -28,7 +28,7 @@ func (d *dictionary) Lookup(key string) (data string, ok bool) {
 func init() {
 	dict := map[string]catalog.Dictionary{
 		"en_US": &dictionary{index: en_USIndex, data: en_USData},
-		"pt_BR": &dictionary{index: pt_BRIndex, data: pt_BRData},
+		"pt":    &dictionary{index: ptIndex, data: ptData},
 	}
 	fallback := language.MustParse("en-US")
 	cat, err := catalog.NewFromMap(dict, catalog.Fallback(fallback))
@@ -54,12 +54,12 @@ const en_USData string = "" + // Size: 83 bytes
 	"\x02Your query\x02Topics\x04\x00\x01\x0a&\x02Type your query\x0a\x0a%[1]" +
 	"s\x0a\x0a(esc to quit)\x02│ Result: %[1]q ├"
 
-var pt_BRIndex = []uint32{ // 5 elements
+var ptIndex = []uint32{ // 5 elements
 	0x00000000, 0x0000000d, 0x00000016, 0x00000045,
 	0x0000005e,
 } // Size: 44 bytes
 
-const pt_BRData string = "" + // Size: 94 bytes
+const ptData string = "" + // Size: 94 bytes
 	"\x02Sua consulta\x02Tópicos\x04\x00\x01\x0a*\x02Digite sua consulta\x0a" +
 	"\x0a%[1]s\x0a\x0a(esc to quit)\x02│ Resultado: %[1]q ├"
 
